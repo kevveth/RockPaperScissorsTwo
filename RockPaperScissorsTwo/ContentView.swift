@@ -20,10 +20,11 @@ struct ContentView: View {
     }
     
     // Array to store three possible moves
-    //    let moves = ["🗿", "📜", "✂️"]
     let moves = ["rock", "paper", "scissors"]
     let winningMoves = ["paper", "scissors", "rock"]
     let icons = ["rps_rock", "rps_paper", "rps_scissors"]
+    
+    let numberOfTurns = 4
     
     var body: some View {
         ZStack {
@@ -73,6 +74,7 @@ struct ContentView: View {
         }
     }
     
+    // Handles a player's move, updates the score, and prepares for the next round
     func moveTapped(_ playerChoice: String) {
         // Find the winning move
         let winningChoice = winningMoves[moves.firstIndex(of: cpuChoice)!]
@@ -89,14 +91,16 @@ struct ContentView: View {
             }
         }
         
+        // Update turn count and check game status
         turns += 1
-        if turns == 4 { gameIsOver = true }
+        if turns == numberOfTurns { gameIsOver = true }
         
         // New choices for the next round
         cpuChoice = moves[Int.random(in: 0..<3)]
         shouldWin.toggle()
     }
     
+    // Resets the game state to initial values
     func resetGame() {
         score = 0
         turns = 0
