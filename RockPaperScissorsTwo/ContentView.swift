@@ -12,9 +12,11 @@ struct ContentView: View {
     @State private var cpuChoice = ""
     @State private var shouldWin = false
     @State private var score = 0
+    @State private var turns = 0
+    @State private var gameIsOver = false
     
     init() {
-        _cpuChoice = State(initialValue: moves.randomElement()!)
+        _cpuChoice = State(initialValue: moves[Int.random(in: 0..<3)])
     }
     
     // Array to store three possible moves
@@ -42,6 +44,7 @@ struct ContentView: View {
                         Text("Lose")
                     }
                 }
+                .font(.largeTitle)
                 .padding()
                 .textCase(.uppercase)
                 
@@ -63,6 +66,11 @@ struct ContentView: View {
             }
             
         }
+        .alert("Game Over!", isPresented: $gameIsOver) {
+            Button("Reset", action: resetGame)
+        } message: {
+            Text("Your final score is: \(score)")
+        }
     }
     
     func moveTapped(_ playerChoice: String) {
@@ -79,8 +87,19 @@ struct ContentView: View {
             score -= 1
         }
         
+        turns += 1
+        if turns == 4 { gameIsOver = true }
+        
         // New choices for the next round
-        cpuChoice = moves.randomElement()!
+        cpuChoice = moves[Int.random(in: 0..<3)]
+        shouldWin.toggle()
+    }
+    
+    func resetGame() {
+        score = 0
+        turns = 0
+        gameIsOver = false
+        cpuChoice = moves[Int.random(in: 0..<3)]
         shouldWin.toggle()
     }
 }
