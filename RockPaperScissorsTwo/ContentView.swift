@@ -17,6 +17,7 @@ struct ContentView: View {
     
     init() {
         _cpuChoice = State(initialValue: moves[Int.random(in: 0..<3)])
+        _shouldWin = State(initialValue: Bool.random())
     }
     
     // Array to store three possible moves
@@ -28,7 +29,7 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            LinearGradient(colors: [.orange, .gray], startPoint: .bottom, endPoint: .top)
+            LinearGradient(colors: [.orange, .indigo], startPoint: .bottom, endPoint: .top)
                 .ignoresSafeArea()
             
             VStack {
@@ -39,11 +40,18 @@ struct ContentView: View {
                     // App's move
                     Text("CPU's Move: \(cpuChoice)")
                     // Whether player should win or lose
-                    if shouldWin {
-                        Text("Win")
-                    } else {
-                        Text("Lose")
+                    Group {
+                        if shouldWin {
+                            Text("Win")
+                                .foregroundStyle(.green)
+                        } else {
+                            Text("Lose")
+                                .foregroundStyle(.red)
+                        }
                     }
+                    .frame(width: 100)
+                    .background(.secondary)
+                    .clipShape(.capsule)
                 }
                 .font(.largeTitle)
                 .padding()
