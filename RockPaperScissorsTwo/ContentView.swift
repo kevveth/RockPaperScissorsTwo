@@ -84,7 +84,9 @@ struct ContentView: View {
         if shouldWin == didPlayerWin {
             score += 1
         } else {
-            score -= 1
+            if score > 0 {
+                score -= 1
+            }
         }
         
         turns += 1
