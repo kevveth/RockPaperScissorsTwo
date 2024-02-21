@@ -21,4 +21,5 @@ _Swift Best Practices_: Adherence to recommended Swift conventions and styling.
 - Clone the repository.
 - Open the project in Xcode.
 - Build and run on a simulator or device.
-- I welcome feedback and am always seeking to learn and improve my SwiftUI skills!
+
+**I welcome feedback and am always seeking to learn and improve my SwiftUI skills!**
